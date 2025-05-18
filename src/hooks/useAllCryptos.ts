@@ -10,6 +10,6 @@ export function useAllCryptos() {
             const data =await fetchAllCryptos();
             return data;
         },
-    staleTime: 1000 * 60 * 10,    
+    staleTime: 0,    
     });
 }

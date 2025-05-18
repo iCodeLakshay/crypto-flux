@@ -1,13 +1,12 @@
 'use client'
 
+import React from 'react'
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { useAllCryptos } from "@/hooks/useAllCryptos";
 import CoinCombobox, { CryptoCombobox } from "./CoinCombobox";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts"
-
-import React from 'react'
 import { fetchCryptoPrices } from "@/data/allCoinPrices";
 import { Skeleton } from "@/components/ui/skeleton";
 
