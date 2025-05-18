@@ -84,7 +84,7 @@ useEffect(() => {
     async function fetchPrices() {
         if (selectedCoin) {
             const data = await fetchCryptoPrices(selectedCoin?.value);
-            const prices = (data as [number, number][]); // type casting
+            const prices = (data as [number, number][]);
 
             const formattedPrices: ChartData[] = prices.map(
                 ([timestamp, price]) => ({
@@ -104,7 +104,6 @@ useEffect(() => {
             setChartData(filteredPrices);
         }
     }
-
     fetchPrices();
 }, [selectedCoin, selectedPeriod]);
 
