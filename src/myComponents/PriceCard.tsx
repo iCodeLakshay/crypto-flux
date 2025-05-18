@@ -19,7 +19,7 @@ const PriceCard = () => {
   const skeletonPlaceholders = [1, 2, 3];
 
   return (
-    <div className="flex flex-row gap-4 items-center ml-3 mt-8 w-[65vw]">
+    <div className="flex flex-row gap-6 w-full">
       
       {isLoading ? (
         // Render skeleton loaders when data is loading
@@ -47,7 +47,7 @@ const PriceCard = () => {
           return (
             <div
               key={crypto.id}
-              className="flex items-center gap-4 rounded-xl shadow-md px-6 py-4 bg-white dark:bg-[#23242a] min-w-[250px] max-w-[330px] w-full transition-colors border border-transparent hover:border-yellow-400"
+              className="relative flex items-center gap-4 rounded-xl shadow-md px-6 py-4 bg-white dark:bg-[#23242a] min-w-[250px] max-w-[330px] w-full transition-colors border border-transparent hover:border-yellow-400"
             >
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 dark:bg-[#2d2e36]">
                 <img src={crypto.image} alt={crypto.name} className="w-7 h-7 object-contain" />
@@ -58,8 +58,8 @@ const PriceCard = () => {
                   ₹{crypto.current_price.toLocaleString()}
                 </div>
               </div>
-              <div className="flex flex-col items-end min-w-[60px]">
-                <span className={`flex items-center text-sm font-semibold ${isNegative ? 'text-red-500 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}
+              <div className=" flex flex-col items-end min-w-[60px]">
+                <span className={`flex absolute top-4 text-sm font-semibold ${isNegative ? 'text-red-500 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}
                 >
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" className={`mr-1 ${isNegative ? '' : 'rotate-180'}`}> 
                     <path d="M12 19V5M12 5l-7 7M12 5l7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
