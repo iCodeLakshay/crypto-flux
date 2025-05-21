@@ -113,7 +113,7 @@ useEffect(() => {
     }
 
     return (
-        <Card className="w-fit col-span-4 ml-3 border-none shadow-md">
+        <Card className="col-span-4 ml-3 border-none shadow-md">
             <CardHeader className="flex flex-row item-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-base font-normal">
                     <CoinCombobox

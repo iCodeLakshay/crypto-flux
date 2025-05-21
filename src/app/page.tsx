@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import PriceCard from "@/myComponents/PriceCard";
 import CryptoChart from "@/myComponents/CryptoChart";
 import CryptoOverview from "@/myComponents/CryptoOverview";
+import MarketTable from "@/myComponents/CryptoModal/MarketTable";
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
@@ -30,6 +31,9 @@ export default function Home() {
         <div className="col-span-3 row-span-4 col-start-1 row-start-2"><CryptoChart /></div>
         <div className="col-span-2 row-span-5 col-start-4 row-start-1 flex mt-2"><CryptoOverview /></div>
       </div>
+        <div className="mt-5">
+          <MarketTable />
+        </div>
     </div>
   );
 }

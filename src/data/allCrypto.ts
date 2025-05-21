@@ -1,12 +1,51 @@
-export function fetchAllCryptos(): Promise<unknown []>{
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(allCryptos);
-        }, 2000);
-    });
-}
+import { z } from "zod";
 
-const allCryptos = [
+const coinSchema = z.object({
+    id: z.string(),
+    symbol: z.string(), name: z.string(),
+    image: z.string().url(),
+    current_price: z.number(),
+    market_cap: z.number(),
+    market_cap_rank: z.number(),
+    fully_diluted_valuation: z.number().nullable(),
+    total_volume: z.number().nullable(),
+    high_24h: z.number(),
+    low_24h: z.number(),
+    price_change_24h: z.number(),
+    price_change_percentage_24h: z.number(),
+    market_cap_change_24h: z.number(),
+    market_cap_change_percentage_24h: z.number(),
+    circulating_supply: z.number(),
+    total_supply: z.number().nullable(), 
+    max_supply: z.number().nullable(),
+    ath: z.number(),
+    ath_change_percentage: z.number(),
+    ath_date: z.string().datetime(), 
+    atl: z.number(),
+    atl_change_percentage: z.number(),
+    atl_date: z.string().datetime(), 
+    roi: z.object({
+      times: z.number(),
+      currency: z.string(),
+      percentage: z.number(),
+    })
+    .nullable(),
+    last_updated: z.string().datetime(),
+  }).passthrough();
+
+  export type allCryptoTypes = {
+  name: string;
+  image: string;
+  current_price: number;
+  current_volume: number;
+  market_cap_rank: number;
+  market_cap: number;
+  price_change_percentage_24h: number;
+  high_24h: number;
+  low_24h: number;
+}[];
+
+  const allCryptos = [
   {
     "id": "bitcoin",
     "symbol": "btc",
@@ -2860,3 +2899,13 @@ const allCryptos = [
     "last_updated": "2025-05-14T14:18:40.244Z"
   }
 ]
+
+export function fetchAllCryptos(): Promise<unknown[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(allCryptos);
+    }, 2000);
+  });
+}
+
+  export const allCryptoSchema = z.array(coinSchema);

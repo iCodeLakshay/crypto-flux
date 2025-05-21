@@ -1,0 +1,76 @@
+import { useEffect, useState } from "react";
+import { cryptoColumns, CryptoData } from "./CryptoColumns";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+import { DataTable } from "./DataTable";
+import {allCryptoTypes} from "@/data/allCrypto";
+
+type SingleCoinType = Pick<allCryptoTypes[number],
+    | "name"
+    | "image"
+    | "current_price"
+    | "current_volume"
+    | "market_cap_rank"
+    | "market_cap"
+    | "price_change_percentage_24h"
+    | "high_24h"
+    | "low_24h"
+>
+
+
+export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
+    const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
+
+    useEffect(() => {
+        const formattedData : CryptoData[] = allCoins.map(
+            (coin: SingleCoinType) => ({
+                name: coin.name,
+                icon: coin.image,
+                price: coin.current_price,
+                volume: coin.current_volume,
+                marketRank: coin.market_cap_rank,
+                marketCap: coin.market_cap,
+                changePercentage: coin.price_change_percentage_24h,
+                highIn24: coin.high_24h,
+                lowIn24: coin.low_24h,
+            })
+        );
+        setCryptoData(formattedData);
+    }, [allCoins])
+
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button variant={"link"} className="h-10">
+                    See all
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="p-6 poppins max-h-svh overflow-auto">
+                <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">
+                        All Cryptocurrencies
+                    </DialogTitle>
+                    <DialogDescription>
+                        View detailed list of all cryptocurrencies,
+                        including their prices, market capitalization, and other key details.
+                    </DialogDescription>
+                </DialogHeader>
+                <Separator />
+                <div className="flex-grow overflow-auto pr-2">
+                    <DataTable columns={cryptoColumns} data={cryptoData}/>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+
+
+
+}
