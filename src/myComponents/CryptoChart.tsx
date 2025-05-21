@@ -106,8 +106,6 @@ useEffect(() => {
     fetchPrices();
 }, [selectedCoin, selectedPeriod]);
 
-
-
     function onChangeToggleGroup(item: string) {
         setSelectedPeriod(item);
     }

@@ -17,7 +17,7 @@ type SingleCoinType = Pick<allCryptoTypes[number],
     | "name"
     | "image"
     | "current_price"
-    | "current_volume"
+    | "total_volume"
     | "market_cap_rank"
     | "market_cap"
     | "price_change_percentage_24h"
@@ -35,7 +35,7 @@ export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
                 name: coin.name,
                 icon: coin.image,
                 price: coin.current_price,
-                volume: coin.current_volume,
+                volume: coin.total_volume,
                 marketRank: coin.market_cap_rank,
                 marketCap: coin.market_cap,
                 changePercentage: coin.price_change_percentage_24h,
@@ -44,6 +44,8 @@ export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
             })
         );
         setCryptoData(formattedData);
+        console.log("Formatted Data: ",formattedData);
+        
     }, [allCoins])
 
     return (
@@ -53,7 +55,7 @@ export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
                     See all
                 </Button>
             </DialogTrigger>
-            <DialogContent className="p-6 poppins max-h-svh overflow-auto">
+            <DialogContent className="p-6 poppins min-w-[75rem] max-h-svh overflow-auto">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold">
                         All Cryptocurrencies

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TrendingUp, AlertCircle, ArrowUp, ArrowDown } from "lucide-react";
-import { allCryptoSchema } from "@/data/allCrypto";
+import { allCryptoSchema, allCryptoTypes } from "@/data/allCrypto";
 import { useAllCryptos } from "@/hooks/useAllCryptos";
 import {
   Table,
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CryptoTableDialog } from "./CryptoDialog";
 
 interface TopCurrencies {
   name: string;
@@ -26,6 +27,7 @@ interface TopCurrencies {
 export default function MarketTable() {
   const { data: allCoinsData, isLoading, isError } = useAllCryptos();
   const [topFiveCurrencies, setTopFiveCurrencies] = useState<TopCurrencies[]>([]);
+  const [allCoins, setAllCoins] = useState<allCryptoTypes>([]);
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -41,7 +43,7 @@ export default function MarketTable() {
             marketRank: coin.market_cap_rank,
             isPositive: coin.price_change_percentage_24h >= 0,
           }));
-          
+          setAllCoins(validateSchema);
           setTopFiveCurrencies(mappedData);
         }
       } catch (error) {
@@ -66,9 +68,10 @@ export default function MarketTable() {
       {!isLoading && topFiveCurrencies.length > 0 && (
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
           <p className="text-sm text-gray-500">Top {topFiveCurrencies.length} cryptocurrencies</p>
-          <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+          {/* <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
             View all currencies
-          </button>
+          </button> */}
+          <CryptoTableDialog allCoins={allCoins} />
         </div>
       )}
       <div className="p-4 md:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
@@ -85,6 +88,7 @@ export default function MarketTable() {
           )}
         </div>
       </div>
+
 
       <div className="overflow-x-auto">
         <Table>

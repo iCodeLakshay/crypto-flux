@@ -5,7 +5,7 @@ export type CryptoData = {
     name: string,
     icon: string,
     price: number,
-    volume: number,
+    volume: number | null,
     marketRank: number,
     marketCap: number,
     changePercentage: number,
@@ -15,10 +15,10 @@ export type CryptoData = {
 
 export const cryptoColumns : ColumnDef<CryptoData>[] = [
     {
-        accessorKey: "id",
-        header: "ID",
+        accessorKey: "name",
+        header: "NAME",
         cell: ({row}) => (
-            <div className="flex items-center space-x-2">
+            <div className="w-fit flex items-center space-x-2">
                 <Image 
                     src={row.original.icon}
                     alt={row.original.name}
@@ -35,7 +35,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
         header: "Price",
         cell: ({ getValue }) => {
             const price = getValue() as number;
-            const formattedPrice = new Intl.NumberFormat("en-US", {
+            const formattedPrice = new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
                 minimumFractionDigits: 2,
@@ -45,17 +45,17 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
         }
     },
     {
-        accessorKey: "volumne",
+        accessorKey: "volume",
         header: "Volume",
         cell: ({ getValue }) => (
-            <pre>${parseFloat(getValue() as string).toLocaleString()}</pre>
+            <span className="font-medium">${parseFloat(getValue() as string).toLocaleString()}</span>
         )
     },
     {
         accessorKey: "marketCap",
         header: "Market Cap",
         cell: ({ getValue }) => (
-            <pre>{parseFloat(getValue() as string).toLocaleString()}</pre>
+            <span className="font-medium">{parseFloat(getValue() as string).toLocaleString()}</span>
         )
     },
     {
@@ -63,7 +63,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
         header: "Highest Price",
         cell: ({ getValue }) => {
             const price = getValue() as number;
-            const formattedPrice = new Intl.NumberFormat("en-US", {
+            const formattedPrice = new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
                 minimumFractionDigits: 2,
@@ -77,7 +77,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
         header: "Lowest Price",
         cell: ({ getValue }) => {
             const price = getValue() as number;
-            const formattedPrice = new Intl.NumberFormat("en-US", {
+            const formattedPrice = new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
                 minimumFractionDigits: 2,

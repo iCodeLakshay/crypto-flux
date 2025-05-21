@@ -32,18 +32,9 @@ const coinSchema = z.object({
     .nullable(),
     last_updated: z.string().datetime(),
   }).passthrough();
-
-  export type allCryptoTypes = {
-  name: string;
-  image: string;
-  current_price: number;
-  current_volume: number;
-  market_cap_rank: number;
-  market_cap: number;
-  price_change_percentage_24h: number;
-  high_24h: number;
-  low_24h: number;
-}[];
+export const allCryptoSchema = z.array(coinSchema);
+export type Coin = z.infer<typeof coinSchema>;
+export type allCryptoTypes = z.infer<typeof allCryptoSchema>; 
 
   const allCryptos = [
   {
@@ -2908,4 +2899,3 @@ export function fetchAllCryptos(): Promise<unknown[]> {
   });
 }
 
-  export const allCryptoSchema = z.array(coinSchema);
