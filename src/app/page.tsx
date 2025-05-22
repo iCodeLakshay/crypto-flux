@@ -29,11 +29,10 @@ export default function Home() {
       <div className="grid grid-cols-5 grid-rows-5 gap-4">
         <div className="col-span-3 flex items-center"><PriceCard /></div>
         <div className="col-span-3 row-span-4 col-start-1 row-start-2"><CryptoChart /></div>
-        <div className="col-span-2 row-span-5 col-start-4 row-start-1 flex mt-2"><CryptoOverview /></div>
+        <div className="col-span-2 row-span-4 col-start-4 row-start-1 flex mt-2"><CryptoOverview /></div>
+<div className="col-span-3 row-span-1 col-start-1 row-start-6"> <MarketTable /> </div>
       </div>
-        <div className="mt-5">
-          <MarketTable />
-        </div>
+
     </div>
   );
 }

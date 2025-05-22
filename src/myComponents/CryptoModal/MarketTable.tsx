@@ -64,124 +64,109 @@ export default function MarketTable() {
   }
 
   return (
-    <Card className="w-2/3 ml-4">
-      {!isLoading && topFiveCurrencies.length > 0 && (
-        <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
-          <p className="text-sm text-gray-500">Top {topFiveCurrencies.length} cryptocurrencies</p>
-          {/* <button className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
-            View all currencies
-          </button> */}
-          <CryptoTableDialog allCoins={allCoins} />
+<Card className=" ml-4 dark:bg-zinc-900 dark:border-zinc-700">
+  {!isLoading && topFiveCurrencies.length > 0 && (
+    <div className="p-4 bg-gray-50 dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 flex justify-between items-center">
+      <p className="text-sm text-gray-500 dark:text-gray-300">Top {topFiveCurrencies.length} cryptocurrencies</p>
+      <CryptoTableDialog allCoins={allCoins} />
+    </div>
+  )}
+
+  <div className="p-4 md:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-zinc-800 dark:to-zinc-900 border-b dark:border-zinc-700">
+    <div className="flex justify-between items-center">
+      <div>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Cryptocurrency Market</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">Top performing cryptocurrencies</p>
+      </div>
+      {!isLoading && (
+        <div className="flex items-center">
+          <TrendingUp className="h-5 w-5 text-emerald-500 mr-2" />
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Live Market Data</span>
         </div>
       )}
-      <div className="p-4 md:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900">Cryptocurrency Market</h2>
-            <p className="text-sm text-gray-500 mt-1">Top performing cryptocurrencies</p>
-          </div>
-          {!isLoading && (
-            <div className="flex items-center">
-              <TrendingUp className="h-5 w-5 text-emerald-500 mr-2" />
-              <span className="text-sm font-medium">Live Market Data</span>
-            </div>
-          )}
-        </div>
-      </div>
+    </div>
+  </div>
 
-
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-12 text-center font-semibold text-gray-900">#</TableHead>
-              <TableHead className="font-semibold text-center pr-24 text-gray-900">Currency</TableHead>
-              <TableHead className="font-semibold text-center text-gray-900">Price</TableHead>
-              <TableHead className="font-semibold text-center text-gray-900">24h Change</TableHead>
-              <TableHead className="font-semibold text-center text-gray-900">Volume</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="text-center">
-            {isLoading
-              ? Array(5)
-                  .fill(0)
-                  .map((_, index) => (
-                    <TableRow key={`skeleton-${index}`} className="hover:bg-gray-50">
-                      <TableCell>
-                        <Skeleton className="h-6 w-6 rounded-full" />
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Skeleton className="h-8 w-8 rounded-full" />
-                          <Skeleton className="h-4 w-24" />
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-left">
-                        <Skeleton className="h-4 w-20 ml-auto" />
-                      </TableCell>
-                      <TableCell className="text-left">
-                        <Skeleton className="h-4 w-16 ml-auto" />
-                      </TableCell>
-                      <TableCell className="text-left">
-                        <Skeleton className="h-4 w-24 ml-auto" />
-                      </TableCell>
-                    </TableRow>
-                  ))
-              : topFiveCurrencies.map((currency) => (
-                  <TableRow 
-                    key={currency.name} 
-                    className="hover:bg-gray-50 transition-colors cursor-pointer group"
-                  >
-                    <TableCell className="font-medium text-gray-700 text-center">
-                      {currency.marketRank}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-10 ">
-                        {currency.icon ? (
-                          <img
-                            src={currency.icon}
-                            alt={`${currency.name} logo`}
-                            className="h-8 w-8 float-start rounded-full object-contain bg-white border group-hover:scale-110 transition-transform"
-                          />
-                        ) : (
-                          <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-                            <span className="text-xs">{currency.name.charAt(0)}</span>
-                          </div>
-                        )}
-                        <div>
-                          <p className="font-medium text-gray-900">{currency.name}</p>
-                        </div>
+  <div className="overflow-x-auto">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-12 text-center font-semibold text-gray-900 dark:text-gray-100">#</TableHead>
+          <TableHead className="font-semibold text-center pr-24 text-gray-900 dark:text-gray-100">Currency</TableHead>
+          <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">Price</TableHead>
+          <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">24h Change</TableHead>
+          <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">Volume</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody className="text-center">
+        {isLoading
+          ? Array(5).fill(0).map((_, index) => (
+              <TableRow key={`skeleton-${index}`} className="hover:bg-gray-50 dark:hover:bg-zinc-800">
+                <TableCell>
+                  <Skeleton className="h-6 w-6 rounded-full dark:bg-zinc-700" />
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    <Skeleton className="h-8 w-8 rounded-full dark:bg-zinc-700" />
+                    <Skeleton className="h-4 w-24 dark:bg-zinc-700" />
+                  </div>
+                </TableCell>
+                <TableCell className="text-left">
+                  <Skeleton className="h-4 w-20 ml-auto dark:bg-zinc-700" />
+                </TableCell>
+                <TableCell className="text-left">
+                  <Skeleton className="h-4 w-16 ml-auto dark:bg-zinc-700" />
+                </TableCell>
+                <TableCell className="text-left">
+                  <Skeleton className="h-4 w-24 ml-auto dark:bg-zinc-700" />
+                </TableCell>
+              </TableRow>
+            ))
+          : topFiveCurrencies.map((currency) => (
+              <TableRow key={currency.name} className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer group">
+                <TableCell className="font-medium text-gray-700 dark:text-gray-300 text-center">
+                  {currency.marketRank}
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-10">
+                    {currency.icon ? (
+                      <img
+                        src={currency.icon}
+                        alt={`${currency.name} logo`}
+                        className="h-8 w-8 rounded-full object-contain bg-white dark:bg-zinc-800 border group-hover:scale-110 transition-transform"
+                      />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-zinc-700 flex items-center justify-center">
+                        <span className="text-xs text-gray-800 dark:text-gray-200">{currency.name.charAt(0)}</span>
                       </div>
-                    </TableCell>
-                    <TableCell className=" font-medium text-gray-900">
-                      ₹ {currency.price}
-                    </TableCell>
-                    <TableCell className="">
-                      <div className="flex items-center justify-center gap-1">
-                        {currency.isPositive ? (
-                          <ArrowUp className="h-4 w-4 text-emerald-500" />
-                        ) : (
-                          <ArrowDown className="h-4 w-4 text-red-500" />
-                        )}
-                        <span
-                          className={`font-medium ${
-                            currency.isPositive ? "text-emerald-500" : "text-red-500"
-                          }`}
-                        >
-                          {parseFloat(currency.change).toFixed(2)}%
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium text-gray-700">
-                      ${parseInt(currency.volume).toLocaleString()}
-                    </TableCell>
-                  </TableRow>
-                ))}
-          </TableBody>
-        </Table>
-      </div>
-      
+                    )}
+                    <p className="font-medium text-gray-900 dark:text-gray-100">{currency.name}</p>
+                  </div>
+                </TableCell>
+                <TableCell className="font-medium text-gray-900 dark:text-gray-100">
+                  ₹ {currency.price}
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-center gap-1">
+                    {currency.isPositive ? (
+                      <ArrowUp className="h-4 w-4 text-emerald-500" />
+                    ) : (
+                      <ArrowDown className="h-4 w-4 text-red-500" />
+                    )}
+                    <span className={`font-medium ${currency.isPositive ? "text-emerald-500" : "text-red-500"}`}>
+                      {parseFloat(currency.change).toFixed(2)}%
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell className="font-medium text-gray-700 dark:text-gray-300">
+                  ${parseInt(currency.volume).toLocaleString()}
+                </TableCell>
+              </TableRow>
+            ))}
+      </TableBody>
+    </Table>
+  </div>
+</Card>
 
-    </Card>
   );
 }

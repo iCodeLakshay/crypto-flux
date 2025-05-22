@@ -21,29 +21,45 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import { Pagination } from "./Pagination/Pagination" // Adjust import path as needed
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    initialPageSize?: number
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    initialPageSize = 10
 }: DataTableProps<TData, TValue>) {
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    )
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         state: {
             columnFilters,
         },
+        initialState: {
+            pagination: {
+                pageSize: initialPageSize,
+            },
+        },
     })
+
+    const handlePageChange = (page: number) => {
+        table.setPageIndex(page - 1);
+    }
+
+    const handlePageSizeChange = (pageSize: number) => {
+        table.setPageSize(pageSize)
+    }
 
     return (
         <div className="h-full flex flex-col">
@@ -56,8 +72,11 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
-                <button className="border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white">Download as CSV</button>
+                <button className="border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white">
+                    Download as CSV
+                </button>
             </div>
+            
             <div className="flex-1 overflow-y-auto rounded-md border">
                 <Table>
                     <TableHeader>
@@ -102,6 +121,16 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
+
+            <Pagination
+                currentPage={table.getState().pagination.pageIndex + 1}
+                totalPages={table.getPageCount()}
+                pageSize={table.getState().pagination.pageSize}
+                totalItems={table.getFilteredRowModel().rows.length}
+                onPageChange={handlePageChange}
+                onPageSizeChange={handlePageSizeChange}
+                pageSizeOptions={[5, 10, 20, 30, 40, 50]}
+            />
         </div>
     )
 }
