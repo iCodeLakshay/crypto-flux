@@ -1,5 +1,8 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { Column, ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { LuArrowDown } from "react-icons/lu";
+import { IoArrowUpSharp, IoArrowDownSharp } from "react-icons/io5";
 
 export type CryptoData = {
     name: string,
@@ -13,10 +16,36 @@ export type CryptoData = {
     lowIn24: number;
 };
 
+interface SortableHeaderProps{
+    column: Column<CryptoData, unknown>,
+    label: string;
+}
+
+function sortingIcon(isSorted: boolean | string){
+    if(isSorted === 'asc') return <IoArrowUpSharp />
+    else if(isSorted === 'desc') return <IoArrowDownSharp />
+    else return <LuArrowDown />
+}
+
+function SortableHeader( {column, label}: SortableHeaderProps) {
+    const isSorted = column.getIsSorted();
+
+    return(
+        <Button
+        variant="ghost"
+        className={`${isSorted && "text-primary"}`}
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+            {sortingIcon(isSorted)}
+            {label}
+        </Button>
+    );
+}
+
 export const cryptoColumns : ColumnDef<CryptoData>[] = [
     {
         accessorKey: "name",
-        header: "NAME",
+        header: ({column}) => { return <SortableHeader column={column} label="Name" /> },
         cell: ({row}) => (
             <div className="w-fit flex items-center space-x-2">
                 <Image 
@@ -32,7 +61,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
     },
     {
         accessorKey: "price",
-        header: "Price",
+        header: ({column}) => { return <SortableHeader column={column} label="Price" /> },
         cell: ({ getValue }) => {
             const price = getValue() as number;
             const formattedPrice = new Intl.NumberFormat("en-IN", {
@@ -46,21 +75,21 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
     },
     {
         accessorKey: "volume",
-        header: "Volume",
+        header: ({column}) => { return <SortableHeader column={column} label="Volume" /> },
         cell: ({ getValue }) => (
             <span className="font-medium">${parseFloat(getValue() as string).toLocaleString()}</span>
         )
     },
     {
         accessorKey: "marketCap",
-        header: "Market Cap",
+        header: ({column}) => { return <SortableHeader column={column} label="Market Cap" /> },
         cell: ({ getValue }) => (
             <span className="font-medium">{parseFloat(getValue() as string).toLocaleString()}</span>
         )
     },
     {
         accessorKey: "highIn24",
-        header: "Highest Price",
+        header: ({column}) => { return <SortableHeader column={column} label="Highest Price" /> },
         cell: ({ getValue }) => {
             const price = getValue() as number;
             const formattedPrice = new Intl.NumberFormat("en-IN", {
@@ -74,7 +103,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
     },
     {
         accessorKey: "lowIn24",
-        header: "Lowest Price",
+        header: ({column}) => { return <SortableHeader column={column} label="Lowest Price" /> },
         cell: ({ getValue }) => {
             const price = getValue() as number;
             const formattedPrice = new Intl.NumberFormat("en-IN", {
@@ -88,7 +117,7 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
     },
     {
         accessorKey: "changePercentage",
-        header: "24h Change",
+        header: ({column}) => { return <SortableHeader column={column} label="24h Change" /> },
         cell: ({ getValue }) => {
             const value = getValue() as number;
             const colorClass = value >= 0 ? "text-green-500": "text-red-500";

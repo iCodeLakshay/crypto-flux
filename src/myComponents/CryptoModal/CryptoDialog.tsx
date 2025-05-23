@@ -55,7 +55,7 @@ export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
                     See all
                 </Button>
             </DialogTrigger>
-            <DialogContent className="p-6 poppins min-w-[75rem] max-h-svh overflow-auto">
+            <DialogContent className="p-6 poppins min-w-[85rem] max-h-svh overflow-auto">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold">
                         All Cryptocurrencies
