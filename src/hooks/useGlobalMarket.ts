@@ -8,7 +8,7 @@ export function useGlobalMarket() {
         queryKey: ["globalMarket"],
         queryFn: async () => {
             const data = await fetchMarketGlobal();
-            console.log("Global Market Data:", data);
+            // console.log("Global Market Data:", data);
             return data;  
         },
         staleTime: 1000 * 60 * 5,

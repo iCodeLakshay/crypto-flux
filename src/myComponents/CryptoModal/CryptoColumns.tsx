@@ -58,6 +58,8 @@ export const cryptoColumns : ColumnDef<CryptoData>[] = [
                 <span>{row.original.name}</span>
             </div>
         ),
+        filterFn: 'includesString',
+        enableColumnFilter: true,
     },
     {
         accessorKey: "price",

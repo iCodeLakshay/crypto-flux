@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { DataTable } from "./DataTable";
 import {allCryptoTypes} from "@/data/allCrypto";
+import { useAppStore } from "@/hooks/useAppStore";
 
 type SingleCoinType = Pick<allCryptoTypes[number],
     | "name"
@@ -28,6 +29,7 @@ type SingleCoinType = Pick<allCryptoTypes[number],
 
 export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
     const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
+    const {openTableDialog, setOpenDialog, setSearch} = useAppStore();
 
     useEffect(() => {
         const formattedData : CryptoData[] = allCoins.map(
@@ -44,12 +46,19 @@ export function CryptoTableDialog({allCoins,}:{allCoins: allCryptoTypes;}){
             })
         );
         setCryptoData(formattedData);
-        console.log("Formatted Data: ",formattedData);
+        // console.log("Formatted Data: ",formattedData);
         
-    }, [allCoins])
+    }, [allCoins]);
+
+    const handleOpenChange = (open: boolean) => {
+        setOpenDialog(open);
+        if (!open) {
+            setSearch("");
+        }
+    };
 
     return (
-        <Dialog>
+        <Dialog open={openTableDialog} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button variant={"link"} className="h-10">
                     See all

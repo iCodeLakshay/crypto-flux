@@ -22,8 +22,9 @@ import {
 } from "@/components/ui/table"
 
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Pagination } from "./Pagination/Pagination"
+import { useAppStore } from "@/hooks/useAppStore"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -34,11 +35,11 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
     columns,
     data,
-    initialPageSize = 10
+    initialPageSize = 8
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [sorting, setSorting] = useState<SortingState>([]);
-
+    const {openTableDialog, search} = useAppStore();
 
     const table = useReactTable({
         data,
@@ -68,6 +69,40 @@ export function DataTable<TData, TValue>({
         table.setPageSize(pageSize)
     }
 
+    // function updateInputChange(event:ChangeEvent<HTMLInputElement>){
+    //     table.getColumn("name")?.setFilterValue(event.target.value);
+    // }
+
+    useEffect(()=>{
+        if(search.length > 0 && openTableDialog){
+            table.getColumn("name")?.setFilterValue(search);
+        } else {
+            table.getColumn("name")?.setFilterValue("");
+        }
+    }, [openTableDialog, search, table]);
+
+    const downloadAsCSV = () => {
+        const headers = Object.keys(data[0] || {});
+
+        const csvContent = [
+            headers.join(","),
+            ...data.map((items) => {
+                headers.map((header) => items[header as keyof typeof items] ?? "").join(",")
+            })
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "cryptos.csv";
+        link.click();
+        link.style.display = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
         <div className="h-full flex flex-col">
             <div className="flex items-center justify-between py-4 mb-4">
@@ -79,7 +114,7 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
-                <button className="border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white">
+                <button onClick={downloadAsCSV} className="border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white">
                     Download as CSV
                 </button>
             </div>
@@ -136,7 +171,7 @@ export function DataTable<TData, TValue>({
                 totalItems={table.getFilteredRowModel().rows.length}
                 onPageChange={handlePageChange}
                 onPageSizeChange={handlePageSizeChange}
-                pageSizeOptions={[5, 10, 20, 30, 40, 50]}
+                pageSizeOptions={[8, 16, 25, 50]}
             />
         </div>
     )
