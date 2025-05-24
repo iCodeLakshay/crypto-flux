@@ -39,7 +39,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [sorting, setSorting] = useState<SortingState>([]);
-    const {openTableDialog, search} = useAppStore();
+    const { openTableDialog, search } = useAppStore();
 
     const table = useReactTable({
         data,
@@ -73,8 +73,8 @@ export function DataTable<TData, TValue>({
     //     table.getColumn("name")?.setFilterValue(event.target.value);
     // }
 
-    useEffect(()=>{
-        if(search.length > 0 && openTableDialog){
+    useEffect(() => {
+        if (search.length > 0 && openTableDialog) {
             table.getColumn("name")?.setFilterValue(search);
         } else {
             table.getColumn("name")?.setFilterValue("");
@@ -105,37 +105,40 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between py-4 mb-4">
+            {/* Header controls */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 mb-4">
                 <Input
                     placeholder="Filter Cryptos..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="w-full sm:max-w-sm"
                 />
-                <button onClick={downloadAsCSV} className="border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white">
+                <button
+                    onClick={downloadAsCSV}
+                    className="w-full sm:w-auto border rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm"
+                >
                     Download as CSV
                 </button>
             </div>
-            
-            <div className="flex-1 overflow-y-auto rounded-md border">
-                <Table>
+
+            {/* Table wrapper */}
+            <div className="flex-1 overflow-x-auto rounded-md border">
+                <Table className="min-w-[600px]">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -164,15 +167,18 @@ export function DataTable<TData, TValue>({
                 </Table>
             </div>
 
-            <Pagination
-                currentPage={table.getState().pagination.pageIndex + 1}
-                totalPages={table.getPageCount()}
-                pageSize={table.getState().pagination.pageSize}
-                totalItems={table.getFilteredRowModel().rows.length}
-                onPageChange={handlePageChange}
-                onPageSizeChange={handlePageSizeChange}
-                pageSizeOptions={[8, 16, 25, 50]}
-            />
+            {/* Pagination */}
+            <div className="mt-4">
+                <Pagination
+                    currentPage={table.getState().pagination.pageIndex + 1}
+                    totalPages={table.getPageCount()}
+                    pageSize={table.getState().pagination.pageSize}
+                    totalItems={table.getFilteredRowModel().rows.length}
+                    onPageChange={handlePageChange}
+                    onPageSizeChange={handlePageSizeChange}
+                    pageSizeOptions={[8, 16, 25, 50]}
+                />
+            </div>
         </div>
     )
 }

@@ -92,7 +92,7 @@ export default function MarketTable() {
       <TableHeader>
         <TableRow>
           <TableHead className="w-12 text-center font-semibold text-gray-900 dark:text-gray-100">#</TableHead>
-          <TableHead className="font-semibold text-center pr-24 text-gray-900 dark:text-gray-100">Currency</TableHead>
+          <TableHead className="font-semibold pl-18 text-gray-900 dark:text-gray-100">Currency</TableHead>
           <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">Price</TableHead>
           <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">24h Change</TableHead>
           <TableHead className="font-semibold text-center text-gray-900 dark:text-gray-100">Volume</TableHead>

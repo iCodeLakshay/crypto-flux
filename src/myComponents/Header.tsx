@@ -24,14 +24,16 @@ const Header = () => {
 
     return (
         <div className='poppins sticky top-0 z-50 backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 border-b border-gray-200/50 dark:border-gray-700/50 shadow-lg'>
-            <div className='grid flex-column grid-cols-3 items-center p-6 max-w-8xl mx-auto'>
-                <div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center p-4 sm:p-6 max-w-8xl mx-auto'>
+
+                {/* Logo and Title */}
+                <div className='flex justify-center sm:justify-start'>
                     <div className='flex gap-4 items-center'>
                         <div className='relative group'>
-                            <img 
-                                className='w-12 h-12 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-200' 
-                                src="./logo/transparent-logo-header.png" 
-                                alt="logo" 
+                            <img
+                                className='w-12 h-12 rounded-xl group-hover:scale-105 transition-transform duration-200'
+                                src="./logo/transparent-logo-header.png"
+                                alt="logo"
                             />
                         </div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-600 dark:from-white dark:via-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
@@ -40,14 +42,15 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div className='relative mx-auto'>
-                    <div className="relative group">
+                {/* Search Bar */}
+                <div className='relative flex justify-center sm:col-span-2 lg:col-span-1'>
+                    <div className="relative group w-full max-w-md">
                         <Input
                             type="search"
                             value={mainSearch}
                             onChange={(e) => setMainSearch(e.target.value)}
                             placeholder="Search a coin..."
-                            className="w-96 h-12 pl-12 pr-4 rounded-2xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-200 shadow-md hover:shadow-lg" 
+                            className="w-full h-12 pl-12 pr-4 rounded-2xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-200 shadow-md hover:shadow-lg"
                         />
                         <FaSearch className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400 group-focus-within:text-yellow-500 transition-colors duration-200" />
                     </div>
@@ -59,13 +62,15 @@ const Header = () => {
                         />
                     )}
                 </div>
-                <div>
-                    <div className='flex justify-end'>
+
+                {/* Theme Toggle */}
+                <div className='flex justify-center lg:justify-end'>
                     <ModeToggle />
-                    </div>
                 </div>
+
             </div>
         </div>
+
     );
 }
 
@@ -78,11 +83,11 @@ function LiveSearch({
 }) {
     const filterCoins = allCoins.filter((coin) => coin.name.toLowerCase().includes(mainSearch.toLowerCase()));
     console.log("filterCoins: ", filterCoins);
-    
+
     const { setOpenDialog, setSearch } = useAppStore();
 
     return (
-        <Card className='absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl rounded-2xl overflow-hidden z-50 max-h-96 overflow-y-auto'>
+        <Card className='absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl rounded-2xl overflow-hidden mx-auto z-50 max-h-96 overflow-y-auto w-[20rem] sm:w-[30rem] sm:left-1/2 sm:-translate-x-1/2'>
             {filterCoins.length > 0 ? (
                 <>
                     {filterCoins.slice(0, 5).map((coin, index) => (
@@ -97,21 +102,21 @@ function LiveSearch({
                         >
                             <div className='flex items-center gap-3'>
                                 <div className='relative'>
-                                    <Image 
-                                        src={coin.image} 
-                                        alt={coin.name} 
-                                        width={40} 
-                                        height={40} 
+                                    <Image
+                                        src={coin.image}
+                                        alt={coin.name}
+                                        width={40}
+                                        height={40}
                                         className='rounded-full shadow-md group-hover:scale-110 transition-transform duration-200'
                                     />
                                 </div>
                                 <div>
-                                    <span className='font-semibold text-gray-900 dark:text-gray-100 text-lg'>{coin.name}</span>
-                                    <div className='text-sm text-gray-500 dark:text-gray-400 uppercase font-medium'>{coin.symbol}</div>
+                                    <span className='font-semibold text-gray-900 dark:text-gray-100 text-base sm:text-lg'>{coin.name}</span>
+                                    <div className='text-xs sm:text-sm text-gray-500 dark:text-gray-400 uppercase font-medium'>{coin.symbol}</div>
                                 </div>
                             </div>
                             <div className='text-right'>
-                                <span className='font-bold text-gray-900 dark:text-gray-100 text-lg'>
+                                <span className='font-bold text-gray-900 dark:text-gray-100 text-sm sm:text-lg'>
                                     {
                                         new Intl.NumberFormat("en-IN", {
                                             style: "currency",
@@ -126,12 +131,12 @@ function LiveSearch({
                     ))}
                 </>
             ) : (
-                <div className='p-8 text-center'>
+                <div className='p-6 sm:p-8 text-center'>
                     <div className='text-gray-500 dark:text-gray-400 mb-2'>
-                        <FaSearch className='w-12 h-12 mx-auto mb-3 opacity-50' />
+                        <FaSearch className='w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 opacity-50' />
                     </div>
-                    <div className='font-medium text-gray-700 dark:text-gray-300'>No Coins Found</div>
-                    <div className='text-sm text-gray-500 dark:text-gray-400 mt-1'>Try searching with a different term</div>
+                    <div className='font-medium text-gray-700 dark:text-gray-300 text-sm sm:text-base'>No Coins Found</div>
+                    <div className='text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1'>Try searching with a different term</div>
                 </div>
             )}
             {
@@ -143,7 +148,7 @@ function LiveSearch({
                                 setMainSearch("");
                                 setSearch(mainSearch);
                             }}
-                            className='w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg'
+                            className='w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg text-sm sm:text-base'
                         >
                             View all coins (+{filterCoins.length - 5})
                         </Button>

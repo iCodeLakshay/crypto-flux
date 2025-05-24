@@ -103,52 +103,54 @@ const CryptoOverview = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#23242a] rounded-2xl shadow-md dark:shadow-gray-900/30 p-6 w-full transition-colors">
-      <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Market Overview</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {isLoading
-          ? Array(4).fill(0).map((_, index) => (
-              <div 
-                key={`skeleton-${index}`} 
-                className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm dark:shadow-gray-900/20 border border-gray-100 dark:border-gray-600"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <Skeleton className="h-6 w-32 bg-gray-200 dark:bg-gray-600" />
-                  <Skeleton className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-600" />
-                </div>
-                <Skeleton className="h-8 w-24 mb-2 bg-gray-200 dark:bg-gray-600" />
-                <Skeleton className="h-4 w-full bg-gray-200 dark:bg-gray-600" />
+<div className="bg-white dark:bg-[#23242a] rounded-2xl shadow-md dark:shadow-gray-900/30 p-6 w-full transition-colors">
+  <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Market Report</h2>
+  
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+    {isLoading
+      ? Array(4).fill(0).map((_, index) => (
+          <div 
+            key={`skeleton-${index}`} 
+            className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm dark:shadow-gray-900/20 border border-gray-100 dark:border-gray-600"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <Skeleton className="h-6 w-32 bg-gray-200 dark:bg-gray-600" />
+              <Skeleton className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-600" />
+            </div>
+            <Skeleton className="h-8 w-24 mb-2 bg-gray-200 dark:bg-gray-600" />
+            <Skeleton className="h-4 w-full bg-gray-200 dark:bg-gray-600" />
+          </div>
+        ))
+      : overviewCards.map((card, index) => (
+          <div 
+            key={index} 
+            className="bg-gray-50 dark:bg-[#23242a] rounded-xl p-4 shadow-sm dark:shadow-gray-900/20 border border-gray-100 dark:border-gray-600 hover:border-yellow-400 dark:hover:border-yellow-500 transition-colors"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-gray-700 dark:text-gray-200 font-medium">{card.title}</h3>
+              <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-600">
+                {card.icon}
               </div>
-            ))
-          : overviewCards.map((card, index) => (
-              <div 
-                key={index} 
-                className="bg-gray-50 dark:bg-[#23242a] rounded-xl p-4 shadow-sm dark:shadow-gray-900/20 border border-gray-100 dark:border-gray-600 hover:border-yellow-400 dark:hover:border-yellow-500 transition-colors"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-gray-700 dark:text-gray-200 font-medium">{card.title}</h3>
-                  <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-600">
-                    {card.icon}
-                  </div>
-                </div>
-                <div className="flex items-baseline">
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{card.value}</p>
-                  {card.change !== undefined && (
-                    <span className={`ml-2 text-sm font-medium ${
-                      card.change >= 0 
-                        ? 'text-green-500 dark:text-green-400' 
-                        : 'text-red-500 dark:text-red-400'
-                    }`}>
-                      {card.change >= 0 ? '+' : ''}{card.change.toFixed(2)}%
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">{card.description}</p>
-              </div>
-            ))
-        }
-      </div>
-    </div>
+            </div>
+            <div className="flex items-baseline">
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{card.value}</p>
+              {card.change !== undefined && (
+                <span className={`ml-2 text-sm font-medium ${
+                  card.change >= 0 
+                    ? 'text-green-500 dark:text-green-400' 
+                    : 'text-red-500 dark:text-red-400'
+                }`}>
+                  {card.change >= 0 ? '+' : ''}{card.change.toFixed(2)}%
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">{card.description}</p>
+          </div>
+        ))
+    }
+  </div>
+</div>
+
   );
 };
 

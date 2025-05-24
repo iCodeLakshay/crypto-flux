@@ -24,15 +24,13 @@ export default function Home() {
   }, [resolvedTheme, mounted]);
 
   return (
-    <div className={`poppins ${bgColor} p-2 min-h-screen`}>
-
-      <div className="grid grid-cols-5 grid-rows-5 gap-4">
-        <div className="col-span-3 flex items-center"><PriceCard /></div>
-        <div className="col-span-3 row-span-4 col-start-1 row-start-2"><CryptoChart /></div>
-        <div className="col-span-2 row-span-4 col-start-4 row-start-1 flex mt-2"><CryptoOverview /></div>
-<div className="col-span-3 row-span-1 col-start-1 row-start-6"> <MarketTable /> </div>
+    <div className={`poppins ${bgColor} px-2 py-5 min-h-screen`}>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 auto-rows-min">
+        <div className="flex items-center lg:col-span-3"> <PriceCard /> </div>
+        <div className="lg:col-span-2 lg:row-span-5 flex"> <CryptoOverview /> </div>
+        <div className="lg:col-span-3 lg:row-span-4"> <CryptoChart /> </div>
+        <div className="lg:col-span-5"> <MarketTable /> </div>
       </div>
-
     </div>
   );
 }

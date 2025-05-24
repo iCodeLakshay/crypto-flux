@@ -68,7 +68,7 @@ export function Pagination({
       </div>
 
       {/* Right Side: Navigation */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center sm:justify-end gap-2">
         <Button
           variant="outline"
           size="icon"
