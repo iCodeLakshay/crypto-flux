@@ -50,7 +50,7 @@ const PriceCard = () => {
               className="relative flex items-center gap-4 rounded-xl shadow-md px-6 py-4 bg-white dark:bg-[#23242a] sm:min-w-[250px] sm:max-w-[330px] w-full transition-colors border border-transparent hover:border-yellow-400"
             >
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 dark:bg-[#2d2e36]">
-                <Image src={crypto.image} alt={crypto.name} className="w-7 h-7 object-contain" />
+                <Image src={crypto.image} alt={crypto.name} width={28} height={28} className="object-contain" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-xs md:text-sm text-gray-500 dark:text-gray-300 font-medium truncate">{crypto.name}</div>

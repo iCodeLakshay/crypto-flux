@@ -47,7 +47,7 @@ const CoinCombobox = ({coins, isLoading, isError, value, setValue} : CoinCombobo
           onClick={() => setOpen(!open)}
         >
           {selectedCoin && (
-            <Image src={selectedCoin.icon} alt={selectedCoin.label} className="w-5 h-5" />
+            <Image src={selectedCoin.icon} alt={selectedCoin.label} width={20} height={20} />
           )}
           <div className='flex items-center justify-between'>
           <span className="font-medium text-start text-gray-800 dark:text-white w-28 truncate">
@@ -77,7 +77,7 @@ const CoinCombobox = ({coins, isLoading, isError, value, setValue} : CoinCombobo
                   setSearch("");
                 }}
               >
-                <Image src={coin.icon} alt={coin.label} className="w-5 h-5 mr-2" />
+                <Image src={coin.icon} alt={coin.label} width={20} height={20} className="mr-2" />
                 <span className="text-gray-800 dark:text-white">{coin.label}</span>
               </button>
             ))

@@ -31,8 +31,10 @@ const Header = () => {
                     <div className='flex gap-4 items-center'>
                         <div className='relative group'>
                             <Image
+                                width={48}
+                                height={48}
                                 className='w-12 h-12 rounded-xl group-hover:scale-105 transition-transform duration-200'
-                                src="./logo/transparent-logo-header.png"
+                                src="/logo/transparent-logo-header.png"
                                 alt="logo"
                             />
                         </div>

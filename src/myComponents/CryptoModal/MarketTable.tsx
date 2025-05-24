@@ -132,9 +132,11 @@ export default function MarketTable() {
                   <div className="flex items-center gap-10">
                     {currency.icon ? (
                       <Image
+                        height={32}
+                        width={32}
                         src={currency.icon}
                         alt={`${currency.name} logo`}
-                        className="h-8 w-8 rounded-full object-contain bg-white dark:bg-zinc-800 border group-hover:scale-110 transition-transform"
+                        className="rounded-full object-contain bg-white dark:bg-zinc-800 border group-hover:scale-110 transition-transform"
                       />
                     ) : (
                       <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-zinc-700 flex items-center justify-center">
