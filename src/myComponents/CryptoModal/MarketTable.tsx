@@ -13,6 +13,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CryptoTableDialog } from "./CryptoDialog";
+import Image from "next/image";
 
 interface TopCurrencies {
   name: string;
@@ -130,7 +131,7 @@ export default function MarketTable() {
                 <TableCell>
                   <div className="flex items-center gap-10">
                     {currency.icon ? (
-                      <img
+                      <Image
                         src={currency.icon}
                         alt={`${currency.name} logo`}
                         className="h-8 w-8 rounded-full object-contain bg-white dark:bg-zinc-800 border group-hover:scale-110 transition-transform"

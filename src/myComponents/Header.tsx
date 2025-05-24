@@ -30,7 +30,7 @@ const Header = () => {
                 <div className='flex justify-center sm:justify-start'>
                     <div className='flex gap-4 items-center'>
                         <div className='relative group'>
-                            <img
+                            <Image
                                 className='w-12 h-12 rounded-xl group-hover:scale-105 transition-transform duration-200'
                                 src="./logo/transparent-logo-header.png"
                                 alt="logo"

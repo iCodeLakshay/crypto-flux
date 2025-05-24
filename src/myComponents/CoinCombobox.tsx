@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import { Skeleton } from '@/components/ui/skeleton';
 import { LuChevronsUpDown } from "react-icons/lu";
+import Image from 'next/image';
 
 
 export interface CryptoCombobox{
@@ -46,7 +47,7 @@ const CoinCombobox = ({coins, isLoading, isError, value, setValue} : CoinCombobo
           onClick={() => setOpen(!open)}
         >
           {selectedCoin && (
-            <img src={selectedCoin.icon} alt={selectedCoin.label} className="w-5 h-5" />
+            <Image src={selectedCoin.icon} alt={selectedCoin.label} className="w-5 h-5" />
           )}
           <div className='flex items-center justify-between'>
           <span className="font-medium text-start text-gray-800 dark:text-white w-28 truncate">
@@ -76,7 +77,7 @@ const CoinCombobox = ({coins, isLoading, isError, value, setValue} : CoinCombobo
                   setSearch("");
                 }}
               >
-                <img src={coin.icon} alt={coin.label} className="w-5 h-5 mr-2" />
+                <Image src={coin.icon} alt={coin.label} className="w-5 h-5 mr-2" />
                 <span className="text-gray-800 dark:text-white">{coin.label}</span>
               </button>
             ))
